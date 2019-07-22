@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import achwie.challenge.otto.core.in.NavRoot;
 
 /**
+ * Simple parser to deserialize JSON to Objects.
  * 
  * @author 22.07.2019, Achim Wiedemann
  *
