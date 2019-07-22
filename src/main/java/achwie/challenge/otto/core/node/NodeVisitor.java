@@ -1,17 +1,15 @@
-package achwie.challenge.otto.core;
+package achwie.challenge.otto.core.node;
 
 import java.util.List;
 
-import achwie.challenge.otto.core.in.NavNode;
-
 /**
- * Visitor to visit each {@link NavNode} in a tree.
+ * Visitor to visit each node in a {@link Walkable} tree.
  * 
  * @author 22.07.2019, Achim Wiedemann
- * @see NavNodeWalker
+ * @see TreeWalker
  *
  */
-public interface NavNodeVisitor {
+public interface NodeVisitor<T> {
   /**
    * Gets called for each node in the tree.
    * 
@@ -19,5 +17,5 @@ public interface NavNodeVisitor {
    * @param pathToRoot The path from the curent node to the root node with the
    *          first element being the root node.
    */
-  public void visit(NavNode node, List<NavNode> pathToRoot);
+  public void visit(T node, List<T> pathToRoot);
 }

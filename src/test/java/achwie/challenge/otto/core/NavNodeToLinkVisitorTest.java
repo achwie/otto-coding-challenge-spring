@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import achwie.challenge.otto.TestTools;
 import achwie.challenge.otto.core.in.NavNode;
+import achwie.challenge.otto.core.node.TreeWalker;
 import achwie.challenge.otto.core.out.Link;
 
 /**
@@ -18,14 +19,14 @@ import achwie.challenge.otto.core.out.Link;
  */
 public class NavNodeToLinkVisitorTest {
   private final NavNode navRoot = TestTools.parseNavigationFromFile(TestTools.FILE_SAMPLE_RESPONSE);
-  private final NavNodeWalker navWalker = new NavNodeWalker();
+  private final TreeWalker treeWalker = new TreeWalker();
 
   public NavNodeToLinkVisitorTest() throws IOException {
   }
 
   @Test
   public void getLinks() {
-    final var links = navWalker.walk(navRoot, new NavNodeToLinkVisitor()).getLinks();
+    final var links = treeWalker.walk(navRoot, new NavNodeToLinkVisitor()).getLinks();
 
     assertEquals(5, links.size());
 
@@ -38,7 +39,7 @@ public class NavNodeToLinkVisitorTest {
 
   @Test
   public void getLinks_withNonFilteringParent() {
-    final var links = navWalker.walk(navRoot, new NavNodeToLinkVisitor("Alter")).getLinks();
+    final var links = treeWalker.walk(navRoot, new NavNodeToLinkVisitor("Alter")).getLinks();
 
     assertEquals(5, links.size());
 
@@ -51,7 +52,7 @@ public class NavNodeToLinkVisitorTest {
 
   @Test
   public void getLinks_withFilteringParent() {
-    final var links = navWalker.walk(navRoot, new NavNodeToLinkVisitor("Baby & Kleinkind")).getLinks();
+    final var links = treeWalker.walk(navRoot, new NavNodeToLinkVisitor("Baby & Kleinkind")).getLinks();
 
     assertEquals(3, links.size());
 

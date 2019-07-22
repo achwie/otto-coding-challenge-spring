@@ -7,12 +7,14 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import achwie.challenge.otto.core.node.Walkable;
+
 /**
  * 
  * @author 22.07.2019, Achim Wiedemann
  *
  */
-public class NavNode {
+public class NavNode implements Walkable<NavNode> {
   public static final String TYPE_SECTION = "section";
   public static final String TYPE_NODE = "node";
   public static final String TYPE_LINK = "link";

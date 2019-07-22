@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import achwie.challenge.otto.core.in.NavNode;
+import achwie.challenge.otto.core.node.NodeVisitor;
 import achwie.challenge.otto.core.out.Link;
 
 /**
  * <p>
- * This is a <em>stateful</em> {@link NavNodeVisitor} which collects nav nodes
- * of a certain kind and transforms them to {@link Link}s. Don't use twice for
- * iteration over a {@link NavNode} tree.
+ * This is a <em>stateful</em> throw-away {@link NodeVisitor} which collects nav
+ * nodes matching certain criteria and transforms them to {@link Link}s. Don't
+ * use twice for iteration over a {@link NavNode} tree.
  * </p>
  * <p>
  * <strong>Thread-safety:</strong> This class is not thread-safe!
@@ -20,7 +21,7 @@ import achwie.challenge.otto.core.out.Link;
  * @author 22.07.2019, Achim Wiedemann
  *
  */
-public class NavNodeToLinkVisitor implements NavNodeVisitor {
+public class NavNodeToLinkVisitor implements NodeVisitor<NavNode> {
   private final List<Link> collectedLinks = new ArrayList<>();
   private String parentFilter;
 
