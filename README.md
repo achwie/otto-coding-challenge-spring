@@ -1,0 +1,1 @@
+Implementation of the [Otto Cloud Software Engineer Code Challenge](https://github.com/aacml/Recruiting/wiki/Cloud-Software-Engineer-Code-Challenge) with Java and Spring Boot.
