@@ -64,12 +64,4 @@ public class NavNodeToLinkVisitor implements NodeVisitor<NavNode> {
   private String createLabelWithPath(List<NavNode> pathToRoot) {
     return pathToRoot.stream().filter(n -> n.getLabel() != null).map(n -> n.getLabel()).collect(Collectors.joining(" - "));
   }
-
-  public String getParentFilter() {
-    return parentFilter;
-  }
-
-  public void setParentFilter(String parentFilter) {
-    this.parentFilter = parentFilter;
-  }
 }

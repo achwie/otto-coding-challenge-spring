@@ -1,0 +1,23 @@
+{
+  "navigationEntries": [{
+    "type": "node",
+    "label": "Test Links",
+    "children": [{
+        "type": "link",
+        "label": "1st link",
+        "url": "https:\/\/c.example.org\/"
+    }, {
+        "type": "link",
+        "label": "3rd link",
+        "url": "https:\/\/a.example.org\/"
+    }, {
+        "type": "link",
+        "label": "3rd link",
+        "url": "https:\/\/d.example.org\/"
+    }, {
+        "type": "link",
+        "label": "2nd link",
+        "url": "https:\/\/b.example.org\/"
+    }]
+  }]
+}
