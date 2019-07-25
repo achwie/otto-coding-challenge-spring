@@ -125,4 +125,16 @@ public class OttoChallengeSpringApplicationTest {
 
     assertEquals(HttpStatus.BAD_REQUEST, actualStatus);
   }
+
+  @Test
+  public void links_withInvalidParent() {
+    final var urlParams = new HashMap<String, Object>();
+    urlParams.put("parent", "nonexistent");
+    urlParams.put("sort", "label:asc");
+
+    final var responseEntity = restTemplate.getForEntity("/links?parent={parent}&sort={sort}", Object.class, urlParams);
+    final HttpStatus actualStatus = responseEntity.getStatusCode();
+
+    assertEquals(HttpStatus.BAD_REQUEST, actualStatus);
+  }
 }

@@ -20,7 +20,11 @@ public class NavQuery {
   }
 
   public List<Link> query(String parentFilter, FieldOrder... fieldOrders) {
-    final var links = new TreeWalker().walk(root, new NavNodeToLinkVisitor(parentFilter)).getLinks();
+    final var visitor = new TreeWalker().walk(root, new NavNodeToLinkVisitor(parentFilter));
+    if (!visitor.wasValidParentFilter())
+      throw new IllegalArgumentException(String.format("Invalid parent filter: could not find any node matching '%s'!", parentFilter));
+
+    final var links = visitor.getLinks();
 
     if (fieldOrders.length > 0)
       Collections.sort(links, new PropertyComparator<Link>(Link.class, fieldOrders));

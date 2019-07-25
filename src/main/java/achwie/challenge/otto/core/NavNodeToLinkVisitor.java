@@ -23,6 +23,7 @@ import achwie.challenge.otto.core.out.Link;
  */
 public class NavNodeToLinkVisitor implements NodeVisitor<NavNode> {
   private final List<Link> collectedLinks = new ArrayList<>();
+  private boolean foundFilterProperty = false;
   private String parentFilter;
 
   public NavNodeToLinkVisitor() {
@@ -37,14 +38,22 @@ public class NavNodeToLinkVisitor implements NodeVisitor<NavNode> {
     if (!isLink(node))
       return;
 
-    if (parentFilter != null && !matchesParentFilter(pathToRoot))
-      return;
+    if (parentFilter != null) {
+      final var matchesParentFilter = matchesParentFilter(pathToRoot);
+      foundFilterProperty |= matchesParentFilter;
+      if (!matchesParentFilter)
+        return;
+    }
 
     collectedLinks.add(nodeToLink(node, pathToRoot));
   }
 
   public List<Link> getLinks() {
     return collectedLinks;
+  }
+
+  public boolean wasValidParentFilter() {
+    return parentFilter == null || (parentFilter != null && foundFilterProperty);
   }
 
   private boolean isLink(NavNode node) {
