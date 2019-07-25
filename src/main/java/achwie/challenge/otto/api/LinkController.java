@@ -1,14 +1,16 @@
 package achwie.challenge.otto.api;
 
+import static achwie.challenge.otto.api.ParseUtil.parseFieldOrders;
+
+import java.io.IOException;
 import java.util.List;
 
-import org.springframework.util.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import achwie.challenge.otto.core.FieldOrder;
-import achwie.challenge.otto.core.SortOrder;
 import achwie.challenge.otto.core.out.Link;
 
 /**
@@ -26,36 +28,14 @@ public class LinkController {
 
   @GetMapping("links")
   public List<Link> links(@RequestParam(value = "parent", required = false) String parentFilterParam,
-      @RequestParam(value = "sort", required = false) String sortParam) {
+      @RequestParam(value = "sort", required = false) String sortParam) throws IOException {
 
-    final var fieldOrders = parseFieldOrders(sortParam);
+    try {
+      final var fieldOrders = parseFieldOrders(sortParam);
 
-    return linkService.getLinks(parentFilterParam, fieldOrders);
-  }
-
-  private FieldOrder[] parseFieldOrders(String sortParam) {
-    if (sortParam == null || StringUtils.isEmpty(sortParam.trim()))
-      return new FieldOrder[0];
-
-    final var parts = StringUtils.trimArrayElements(sortParam.split(","));
-    final var fieldOrders = new FieldOrder[parts.length];
-    for (int i = 0; i < parts.length; i++)
-      fieldOrders[i] = parseFieldOrder(parts[i]);
-
-    return fieldOrders;
-  }
-
-  private FieldOrder parseFieldOrder(String sortField) {
-    final var parts = StringUtils.trimArrayElements(sortField.split(":"));
-
-    String fieldName = null;
-    if (parts.length > 0)
-      fieldName = parts[0];
-
-    SortOrder sortOrder = null;
-    if (parts.length > 1)
-      sortOrder = SortOrder.fromString(parts[1]);
-
-    return new FieldOrder(fieldName, sortOrder);
+      return linkService.getLinks(parentFilterParam, fieldOrders);
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not return links: " + e.getMessage());
+    }
   }
 }

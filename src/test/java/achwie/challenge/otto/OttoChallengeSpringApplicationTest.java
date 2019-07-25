@@ -120,15 +120,9 @@ public class OttoChallengeSpringApplicationTest {
     final var urlParams = new HashMap<String, Object>();
     urlParams.put("sort", "lkjasd:asdasd:asd,label:desc,:;::asd,,,adssad");
 
-    final var response = restTemplate.getForEntity("/links?sort={sort}", Link[].class, urlParams);
-    final List<Link> links = Arrays.asList(response.getBody());
+    final var responseEntity = restTemplate.getForEntity("/links?sort={sort}", Object.class, urlParams);
+    final HttpStatus actualStatus = responseEntity.getStatusCode();
 
-    assertEquals(5, links.size());
-
-    assertLinkEquals("Sortiment - Alter - Kindergarten - 4-5 Jahre", "http://www.mytoys.de/48-71-months/", links, 0);
-    assertLinkEquals("Sortiment - Alter - Kindergarten - 2-3 Jahre", "http://www.mytoys.de/24-47-months/", links, 1);
-    assertLinkEquals("Sortiment - Alter - Baby & Kleinkind - 7-12 Monate", "http://www.mytoys.de/7-12-months/", links, 2);
-    assertLinkEquals("Sortiment - Alter - Baby & Kleinkind - 13-24 Monate", "http://www.mytoys.de/13-24-months/", links, 3);
-    assertLinkEquals("Sortiment - Alter - Baby & Kleinkind - 0-6 Monate", "http://www.mytoys.de/0-6-months/", links, 4);
+    assertEquals(HttpStatus.BAD_REQUEST, actualStatus);
   }
 }
