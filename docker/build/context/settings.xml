@@ -1,0 +1,4 @@
+<settings>
+  <!-- Set Maven repo location to where we'll mount the m2repo Docker volume in the container -->
+  <localRepository>/media/m2repo</localRepository>
+</settings>
