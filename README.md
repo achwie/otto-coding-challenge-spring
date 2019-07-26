@@ -25,3 +25,9 @@ $ build.sh
 ```
 
 The `runtime` directory contains a script to run the Spring app from the Docker volume created during the previous build step.  
+
+
+
+# My approach
+
+The obvious thing is that we need to parse a tree structure and transform it. I decided to use the visitor pattern here, since it's a good fit for this kind of problem (see package `achwie.challenge.otto.core.node`). While the parent filter was quite straight forward, the sorting by field names was more tricky. I wanted this to be flexible and not hardcode field names. I also wanted to make it work with numbers and strings alike so I had to get a little creative here (see `PropertyComparator`). Since I wanted all of this to be testable with simple unit tests I started coding without any container environment and only added the spring-stuff at the very end which worked very well.
