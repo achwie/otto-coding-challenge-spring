@@ -17,6 +17,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import achwie.challenge.otto.core.out.Link;
@@ -27,6 +28,7 @@ import achwie.challenge.otto.core.out.Link;
  *
  */
 @RunWith(SpringRunner.class)
+@ActiveProfiles(profiles = "integrationtest")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class OttoChallengeSpringApplicationTest {
   @Autowired
