@@ -21,7 +21,7 @@ To run the Spring App you can also use Docker. After the app has been built (see
 
 ```
 $ cd docker
-$ build.sh
+$ run.sh
 ```
 
 The `runtime` directory contains a script to run the Spring app from the Docker volume created during the previous build step.  
@@ -31,3 +31,5 @@ The `runtime` directory contains a script to run the Spring app from the Docker 
 # My approach
 
 The obvious thing is that we need to parse a tree structure and transform it. I decided to use the visitor pattern here, since it's a good fit for this kind of problem (see package `achwie.challenge.otto.core.node`). While the parent filter was quite straight forward, the sorting by field names was more tricky. I wanted this to be flexible and not hardcode field names. I also wanted to make it work with numbers and strings alike so I had to get a little creative here (see `PropertyComparator`). Since I wanted all of this to be testable with simple unit tests I started coding without any container environment and only added the spring-stuff at the very end which worked very well.
+
+For the Docker environment, the build environment (see `docker/build`) builds the project and stores an executable JAR in a Docker volume. The volume can then be mounted into a container with a JRE and be run in there (see `docker/runtime`). Convenience script for building and running the Spring application are provided (`docker/build.sh` and `docker/run.sh`).
