@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 
 /**
@@ -53,8 +54,8 @@ public class PropertyComparator<T> implements Comparator<T> {
       final var orderDir = Optional.ofNullable(o.getSortOrder()).orElse(SORT_ORDER_DEFAULT);
 
       // Already ensured fields are comparable in constructor
-      final var c1 = (Comparable<Object>) o1Wrapped.getPropertyValue(orderBy);
-      final var c2 = (Comparable<Object>) o2Wrapped.getPropertyValue(orderBy);
+      final var c1 = (Comparable<Object>) getPropertyValue(o1Wrapped, orderBy);
+      final var c2 = (Comparable<Object>) getPropertyValue(o2Wrapped, orderBy);
 
       final int orderMultiplier = (orderDir == SortOrder.ASC) ? 1 : -1;
 
@@ -66,6 +67,13 @@ public class PropertyComparator<T> implements Comparator<T> {
     }
 
     return 0;
+  }
+
+  private Object getPropertyValue(BeanWrapper wrapped, String propertyName) {
+    final Object value = wrapped.getPropertyValue(propertyName);
+
+    // Ignore case when comparing strings
+    return (value instanceof String) ? ((String) value).toLowerCase() : value;
   }
 
   private FieldOrder[] keepComparableFields(FieldOrder[] fieldOrders) {
