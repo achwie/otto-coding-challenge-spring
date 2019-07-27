@@ -35,6 +35,7 @@ public class RemoteNavigationProvider implements NavigationProvider {
     this.navigationApiKey = navApiKey;
   }
 
+  // TODO: Cache method invocation
   public NavNode getNavigation() {
     final String json = restTemplate.exchange(RequestEntity.get(navigationUri).header(HEADER_FIELD_API_KEY, navigationApiKey).build(), String.class).getBody();
 
