@@ -4,6 +4,6 @@
 #
 
 docker build \
-        -t achwie/otto-challenge-spring:0.1 \
+        -t achwie/otto-challenge-spring-builder:0.1 \
         -f Dockerfile \
         context
