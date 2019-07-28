@@ -13,7 +13,7 @@ $ build.sh
 
 Depending on how you set up Docker you might have to run the `build.sh` and `run.sh` scripts with `sudo`.
 
-The `build` directory contains a Dockerfile to build a container that will mount the local FS into the container and use that mount to build the project via the container's Maven installation.
+The `build` directory contains a Dockerfile to build a container that will mount the host FS into the container and use that mount to build the project via the container's Maven installation.
 
 ## Running
 
@@ -24,7 +24,6 @@ $ cd docker
 $ run.sh
 ```
 
-The `runtime` directory contains a script to run the Spring app in a Docker container.  
 
 
 

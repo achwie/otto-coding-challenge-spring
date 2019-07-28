@@ -7,3 +7,7 @@
 pushd build
 ./build.sh && ./run.sh
 popd
+
+pushd runtime
+./build.sh
+popd
